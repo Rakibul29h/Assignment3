@@ -54,7 +54,7 @@ CREATE TABLE Bookings (
   user_id int not null,
   match_id int not null,
   seat_number varchar(20),
-  payment_status varchar(30) not null,
+  payment_status varchar(30) ,
   total_cost decimal(10,2) not null,
   -- Write your constraint to make 'booking_id' the Primary Key
   constraint pk_bookingId primary key(booking_id),
@@ -97,3 +97,14 @@ INSERT INTO Bookings (booking_id, user_id, match_id, seat_number, payment_status
 (503, 2, 101, 'A-13', 'Confirmed', 150.00),
 (504, 2, 101, NULL, NULL, 150.00),
 (505, 3, 102, 'C-20', 'Pending', 120.00);
+
+
+
+-- Query 1 _
+
+  select
+  match_id, fixture,base_ticket_price
+  from matches
+  where match_status='Available'
+  and tournament_category='Champions League'
+
