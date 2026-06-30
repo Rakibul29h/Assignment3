@@ -187,9 +187,9 @@ from
     matches
 where
     match_status = 'Available'
-    and tournament_category = 'Champions League'
-    
-     -- Query 2_
+    and tournament_category = 'Champions League' ;
+
+    -- Query 2_
 select
     user_id,
     full_name,
@@ -198,9 +198,9 @@ from
     users
 where
     full_name ilike('Tanvir%')
-    or full_name ilike('%Haque%')
+    or full_name ilike('%Haque%') ;
     
-     -- Query 3_
+    -- Query 3_
 select
     booking_id,
     user_id,
@@ -209,7 +209,7 @@ select
 from
     bookings
 where
-    payment_status is null
+    payment_status is null;
     
      -- Query 4_
 select
@@ -220,13 +220,28 @@ select
 from
     bookings b
     inner join users u on b.user_id = u.user_id
-    inner join matches m on b.match_id = m.match_id 
+    inner join matches m on b.match_id = m.match_id ;
     
--- Query 5 _
+    -- Query 5 _
 select
     u.user_id,
     u.full_name,
     b.booking_id
 from
     users u
-    left join bookings b on u.user_id = b.user_id
+    left join bookings b on u.user_id = b.user_id ;
+    
+    -- Query 6_
+select
+    booking_id,
+    match_id,
+    total_cost
+from
+    bookings
+where
+    total_cost > (
+        select
+            avg(total_cost)
+        from
+            bookings
+    )
