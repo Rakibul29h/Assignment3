@@ -35,7 +35,7 @@ CREATE TABLE Matches (
     match_id int,
     fixture varchar(100) not null,
     tournament_category varchar(100) not null,
-    base_ticket_price decimal(10, 2) not null,
+    base_ticket_price float not null,
     match_status varchar(20) not null,
     -- Write your constraint to make 'match_id' the Primary Key
     constraint pk_matchId primary key(match_id),
@@ -61,7 +61,7 @@ CREATE TABLE Bookings (
     match_id int not null,
     seat_number varchar(20),
     payment_status varchar(30),
-    total_cost decimal(10, 2) not null,
+    total_cost float not null,
     -- Write your constraint to make 'booking_id' the Primary Key
     constraint pk_bookingId primary key(booking_id),
     -- Write your Foreign Key constraint linking 'user_id' to the Users table
@@ -187,9 +187,9 @@ from
     matches
 where
     match_status = 'Available'
-    and tournament_category = 'Champions League' ;
+    and tournament_category = 'Champions League';
 
-    -- Query 2_
+-- Query 2_
 select
     user_id,
     full_name,
@@ -198,9 +198,9 @@ from
     users
 where
     full_name ilike('Tanvir%')
-    or full_name ilike('%Haque%') ;
-    
-    -- Query 3_
+    or full_name ilike('%Haque%');
+
+-- Query 3_
 select
     booking_id,
     user_id,
@@ -210,8 +210,8 @@ from
     bookings
 where
     payment_status is null;
-    
-     -- Query 4_
+
+-- Query 4_
 select
     b.booking_id,
     u.full_name,
@@ -220,18 +220,18 @@ select
 from
     bookings b
     inner join users u on b.user_id = u.user_id
-    inner join matches m on b.match_id = m.match_id ;
-    
-    -- Query 5 _
+    inner join matches m on b.match_id = m.match_id;
+
+-- Query 5 _
 select
     u.user_id,
     u.full_name,
     b.booking_id
 from
     users u
-    left join bookings b on u.user_id = b.user_id ;
-    
-    -- Query 6_
+    left join bookings b on u.user_id = b.user_id;
+
+-- Query 6_
 select
     booking_id,
     match_id,
@@ -244,4 +244,16 @@ where
             avg(total_cost)
         from
             bookings
-    )
+    );
+
+-- Query 7 _
+select
+    match_id,
+    fixture,
+    base_ticket_price
+from
+    matches
+order by
+    base_ticket_price desc
+limit
+    2 offset 1;
